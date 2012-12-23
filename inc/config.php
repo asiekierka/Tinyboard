@@ -499,7 +499,11 @@
 	
 	// How many reports you can create in the same request.
 	$config['report_limit'] = 3;
-	
+
+	// Banmeter
+	$config['banmeter'] = false;
+	$config['banmeter_time'] = 7200; // Time for counting bans, in seconds
+	$config['banmeter_max'] = 12; // Bans until 100%
 /*
  * ====================
  *  Display settings

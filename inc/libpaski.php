@@ -37,7 +37,9 @@ function lp_znajdzCzcionke($czcionka,$h) {
 	$dane_czcionki = FALSE;
 	$dopasowanie = 10000;
 	$wys_docelowa = "zadna";
-	if(count(explode("-",$czcionka))>1) $wys_docelowa = explode("-",$czcionka)[1];
+	if(count(explode("-",$czcionka))>1) {
+		$temp = explode("-", $czcionka); $wys_docelowa = $temp[1];
+	}
 	foreach($lp_czcionki as $nazwa => $dane) {
 		if($nazwa == $czcionka) {
 			$dane_czcionki = $dane;
@@ -57,7 +59,7 @@ function lp_znajdzCzcionke($czcionka,$h) {
 function lp_dlugoscTekstu($dane_czcionki, $tekst) {
 	$px_czcionki = $dane_czcionki[0]; $pt_czcionki = ($px_czcionki*3)/4;
 	if($dane_czcionki[1] == "ttf") {
-		$bbox = imagettfbbox($pt_czcionki,0,$dane_czcionki[2],$tekst);
+		$bbox = @imagettfbbox($pt_czcionki,0,$dane_czcionki[2],$tekst);
 	}
 	return abs($bbox[2] - $bbox[0]);
 }
@@ -79,7 +81,7 @@ function drawPasek($w, $h, $ulamek, $czcionka, $kolor = 0xFF0000, $kolor_tla = 0
 	$zpy = $px_czcionki+$dane_czcionki[3];
 	if($zpx<1) $zpx = 1; if($zpy<1) $zpy = 1;
 	if($dane_czcionki[1] == "ttf") {
-		imagettftext($img,$pt_czcionki,0,$zpx,$zpy,$kolor_tekstu,$dane_czcionki[2],$zproc);
+		@imagettftext($img,$pt_czcionki,0,$zpx,$zpy,$kolor_tekstu,$dane_czcionki[2],$zproc);
 	}
 	return $img;
 }
